@@ -8,7 +8,7 @@ public class TabGroup : MonoBehaviour
     float tabLayoutHeight;
     int openCloseCount = 2;
     GameObject currentTab; 
-
+    GameObject rotateModeButton;
     LayoutElement tabLayout;
     
    //Open the tab
@@ -22,6 +22,8 @@ public class TabGroup : MonoBehaviour
         tabLayout = GameObject.Find("MenuPanel").GetComponent<LayoutElement>();
         tabLayoutHeight = tabLayout.preferredHeight;
         tabLayout.preferredHeight = 0;
+
+        rotateModeButton = GameObject.Find("rotateModeButton");
         
     }
     public void SwapTabs(string _tab){
@@ -39,7 +41,10 @@ public class TabGroup : MonoBehaviour
             if(tabs[i].name == _tab){
                 currentTab = tabs[i];
                 currentTab.SetActive(true);
+            }else{
+                tabs[i].SetActive(false);
             }
+
                 
         }
 

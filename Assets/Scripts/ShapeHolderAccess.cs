@@ -22,23 +22,15 @@ public class ShapeHolderAccess : MonoBehaviour
 
     Slider pSlider;
 
-    RectTransform _modeMenu;
-
-    RectTransform _autoRotateButton;
+    public GameObject rotateModeButton;
     Vector3 modePosition;
-    Vector3 autoButtonPosition;
+
 
     void Start()
     {
         shapes = GameObject.FindGameObjectsWithTag("Shapes");
         currentShape = shapes[0].GetComponent<MeshRenderer>();
         currentShape.enabled = true; 
-
-         _modeMenu = GameObject.Find("ModeMenu").GetComponent<RectTransform>();
-         modePosition = _modeMenu.transform.position;
-
-         _autoRotateButton = GameObject.Find("AutoRotate").GetComponent<RectTransform>();
-         autoButtonPosition = _autoRotateButton.transform.position;
 
         _inputFloat = GameObject.Find("DegreeInput").GetComponent<TMPro.TMP_InputField>();
         if(_inputFloat == null) 
@@ -114,19 +106,9 @@ public class ShapeHolderAccess : MonoBehaviour
 
     public void ChangeRotateAmount(){
         rotationAmount = float.Parse(_inputFloat.text);
+        Debug.Log(_inputFloat.text);
     }
 
-
-    public void OpenModeMenu(int open){
-        if(open == 1){
-            _modeMenu.transform.position = new Vector3(modePosition.x, 66 ,modePosition.z);
-             _autoRotateButton.transform.position = new Vector3(autoButtonPosition.x, 200, autoButtonPosition.z);
-        }else{
-            _modeMenu.transform.position = new Vector3(modePosition.x, -1000 ,modePosition.z);
-        }
-        
-         
-    }
     public void SetMode(int _mode){
 
         switch(_mode){
@@ -142,8 +124,12 @@ public class ShapeHolderAccess : MonoBehaviour
         }
 
         mode = 1;
-        _autoRotateButton.transform.position = new Vector3(autoButtonPosition.x, 200, autoButtonPosition.z);
-        _modeMenu.transform.position = new Vector3(modePosition.x,-1000 ,modePosition.z);
+        rotateModeButton.SetActive(true);
+        //Reset mode button -> set mode to 0
+        if(_mode == 4){
+            mode = 0;
+            rotateModeButton.SetActive(false);
+        }
 
     }
 }
